@@ -15,6 +15,6 @@ The genotyping of the 49 tropical inbred lines was per- formed by Affymetrix® p
 
 # Environmental Typing
 
-The environmebtal typing (envirotyping) pipeline were conducted using the functions of the [EnvRtype](https://github.com/allogamous/EnvRtype) R package. This package has functions for support the collection of environmental data (*get_weather()*), processing (*processWTH()*, build of the **W** matrix of envirotype covariables (*W.matrix()*) and genomic x envirotyping kinships (*get_kernels()*). Bellow we present a brief example of the use of this package to run a genomic prediction considering reaction norms.
+The environmebtal typing (envirotyping) pipeline were conducted using the functions of the [EnvRtype](https://github.com/allogamous/EnvRtype) R package. This package has functions for support the collection of environmental data [*get_weather()*], processing [*processWTH()*], build of the **W** matrix of envirotype covariables [*W.matrix()*] and genomic x envirotyping kinships [*get_kernels()*]. Bellow we present a brief example of the use of this package to run a genomic prediction considering reaction norms.
 
 
