@@ -15,6 +15,6 @@ Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3)
 
 # Environmental Typing
 
-The environmebtal typing (envirotyping) pipeline were conducted using the functions of the [EnvRtype](https://github.com/allogamous/EnvRtype) R package. This package has functions for support the collection of environmental data **get_weather()**, processing environmentall data **processWTH()**, build of the **W** matrix of envirotype covariables **W.matrix()** and genomic x envirotyping kinships **get_kernels()**. Bellow we present a brief example of the use of this package to run a genomic prediction considering reaction norms.
+The environmebtal typing (envirotyping) pipeline were conducted using the functions of the [EnvRtype](https://github.com/allogamous/EnvRtype) R package. This package has functions for supporting the collection of environmental data **get_weather()**, processing environmental data **processWTH()** and build of the **W** matrix of envirotype covariables **W.matrix()**. Finally, this package helps the construction of the genomic x envirotyping kinships **get_kernels()** that easily run into a Bayesian Genomic-enabled Prediction framwork implemented in [BGGE](https://github.com/italo-granato/BGGE) package. Bellow we present a brief example of the use of this package to run a genomic prediction considering reaction norms.
 
 
