@@ -10,7 +10,7 @@ The experimental scheme used to evaluate the hybrids was an augmented block desi
 
 The genotyping of the 49 tropical inbred lines was per- formed by Affymetrix® platform, containing about 614,000 SNPs (Unterseer et al. 2014). Then, markers with low call rate (< 95%), minor allele frequency (MAF < 0.05) and heterozygous loci on at least one individual were removed. The missing markers were imputed using the snpReady R package. Finally, the resulting 146,365 SNPs high-quality polymorphic SNPs were used to build the artificial hybrids genomic matrix, deduced by combining the genotypes from its two parents.
 
-[Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3)
+Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3) for the full genotypic and phenotypic data
 
 
 # Environmental Typing
