@@ -15,4 +15,4 @@ The genotyping of the 49 tropical inbred lines was per- formed by Affymetrix® p
 
 # Environmental Typing
 
-(EnvRtype)[https://github.com/allogamous/EnvRtype]
+[EnvRtype](https://github.com/allogamous/EnvRtype)
