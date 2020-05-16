@@ -1,6 +1,20 @@
 # Kernel Methods for High-Resolution Genomic Prediction across Multiple Environments
 Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, dominance effects and considering environmental information
 
+# Contents
+
+   * [1. HEL data set](#p1)
+   * [2. USP data set](#p2)
+   * [3. Environmental Typing](#p3)
+   * [4. Kernel Methods](#p4)
+   * [5. Statistical Models](#p5)
+   * [6. Cross-Validation Schemes](#p6)
+   * [7. A Toy Example](#p7)
+   * [8. References](#P8)
+   
+
+<div id="p1" />
+
 # HEL data set
 
 452 tropical maize single-crosses provided by Helix Sementes®, Brazil. Hybrids were obtained from crosses between 128 inbred lines and were evaluated for grain yield (GY) and plant height (PH). Field trials were carried out using a randomized complete block design with two replicates each, allocated across five sites for GY and three for PH during the growing season of 2015.
@@ -19,6 +33,8 @@ The genotyping of the 49 tropical inbred lines was per- formed by Affymetrix® p
 
 Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3) for the full genotypic and phenotypic data
 
+
+<div id="p2" />
 
 # Environmental Typing
 
