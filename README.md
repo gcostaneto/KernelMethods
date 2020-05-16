@@ -11,8 +11,10 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
    * [6. Cross-Validation Schemes](#p6)
    * [7. A Toy Example](#p7)
    * [8. References](#P8)
-   
+ 
+ ----------------------------------------------------------------------------------------------------------------
 <div id="p1" />
+
 # HEL data set
 
 452 tropical maize single-crosses provided by Helix Sementes®, Brazil. Hybrids were obtained from crosses between 128 inbred lines and were evaluated for grain yield (GY) and plant height (PH). Field trials were carried out using a randomized complete block design with two replicates each, allocated across five sites for GY and three for PH during the growing season of 2015.
@@ -21,8 +23,9 @@ Inbred lines were genotyped via the Affymetrix® Axiom® Maize Genotyping Array 
 
 Check the [CIMMYT DATA VERSE Repository](https://data.cimmyt.org/dataset.xhtml?persistentId=hdl:11529/10887) for the full genotypic and phenotypic data
 
-
+--------------------------------------------------------------------------------------------------------------------------------
 <div id="p2" />
+
 # USP data set
 
 906 maize single-crosses obtained from a full dial- lel, according to Griffing’s method 4, divided into two heterotic groups, flint and dent, with 34 and 15 lines, respec- tively. Moreover, each heterotic group has a representative line, frequently used as the tester in our breeding program.
@@ -34,6 +37,7 @@ The genotyping of the 49 tropical inbred lines was per- formed by Affymetrix® p
 Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3) for the full genotypic and phenotypic data
 
 
+--------------------------------------------------------------------------------------------------------------------------------
 <div id="p3" />
 
 # Environmental Typing
