@@ -10,8 +10,8 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
    * [5. Statistical Models](#p5)
    * [6. Cross-Validation Schemes](#p6)
    * [7. A Toy Example](#p7)
-   * [8. References](#P8)
-   * [9. Authorship and Acknowledgments](#P8)
+   * [8. References](#p8)
+   * [9. Authorship and Acknowledgments](#p9)
  
  ----------------------------------------------------------------------------------------------------------------
 <div id="p1" />
