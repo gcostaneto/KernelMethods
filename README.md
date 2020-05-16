@@ -11,6 +11,7 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
    * [6. Cross-Validation Schemes](#p6)
    * [7. A Toy Example](#p7)
    * [8. References](#P8)
+   * [9. Authorship and Acknowledgments](#P8)
  
  ----------------------------------------------------------------------------------------------------------------
 <div id="p1" />
@@ -43,5 +44,19 @@ Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3)
 # Environmental Typing
 
 The environmental typing (envirotyping) pipeline were conducted using the functions of the [EnvRtype](https://github.com/allogamous/EnvRtype) R package. This package has functions for supporting the collection of environmental data **get_weather()**, processing environmental data **processWTH()** and build of the **W** matrix of envirotype covariables **W.matrix()**. Finally, this package helps the construction of the genomic x envirotyping kinships using **get_kernels()**  functions, which easily can run into a Bayesian Genomic-enabled Prediction framework implemented in [BGGE](https://github.com/italo-granato/BGGE) package. Bellow we present a brief example of the use of both packages to run a genomic prediction considering reaction norms.
+
+ ----------------------------------------------------------------------------------------------------------------
+<div id="p9" />
+
+# Authorship and Acknowledgments
+
+For any questions, suggestions or corrections, please contact the author of this tutorial at **Germano Costa neto** germano.cneto@usp.br
+
+We thank prof. Jaime Cuevas for his availability for Deep Kernel codes. For more details on this subject, contact him or look for more information in Cuevas et al. (2019).
+
+We thank CIMMYT and the University of São Paulo (USP) for their support in the development of the project.
+
+The theories exposed on this page are presented in the work of Costa Neto et al (not published yet) and were developed under the authorship of Germano Costa Neto, Jose Crossa and Roberto Fritsche Neto.
+    
 
 
