@@ -121,17 +121,17 @@ Below are the codes for three types of kernel methods. We use these methods to m
 
 Five genomic prediction models were presented using the function **get_kernels** from EnvRtype package.
 
-### Main Additive Effect Model (without GE effects)
+### Model 1:  Main Additive Effect Model (without GE effects)
 
 
-### Main Additive plus Dominance Effects Model (without GE effects)
+### Model 2: Main Additive plus Dominance Effects Model (without GE effects)
 
-### Main Additive-Dominance effects plus GE deviation (GE = AE + DE)
+### Model 3: Main Additive-Dominance effects plus GE deviation (GE = AE + DE)
 
 
-### Main Additive-Dominance effects plus Envirotyping information (W)
+### Model 4: Main Additive-Dominance effects plus Envirotyping information (W)
 
-### Main Additive-Dominance effects plus GE reaction norm (W+AW+DW)
+### Model 5: Main Additive-Dominance effects plus GE reaction norm (W+AW+DW)
 
 
  ----------------------------------------------------------------------------------------------------------------
@@ -141,7 +141,32 @@ Five genomic prediction models were presented using the function **get_kernels**
 
 > Genomic predictions were performed using the Bayesian Genotype plus Genotype × Environment (BGGE) package (Granato et al. 2018) fitted to 10,000 iterations with the first 1,000 cycles removed as burn-in with thinning equal to 2. 
 
+```{r}
+# example: Using model 5 com DK
+require(EnvRtype)
 
+# Step 1: Compute Dominance effects
+
+# Step 2: Compute the basic DK for each effect (A = adidtivity, D = dominance, W = environmental data)
+
+AK1_G <-
+
+AK1_E <-
+# Step 3: Create the kernels for the model structutre RNMM (reaction norm + main effects)
+
+training <- 1:length(y) # here you put the training set. As example, we use all data and 10 hidden layers (nl = 10)
+K <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
+
+# Step 4: Preparing the Genomic Prediction using BGGE
+
+require(BGGE)
+ne <- as.vector(table(phenoGE$env)) # number of genotypes per environment
+y  <- phenoGE$yield                 # phenotypic observations
+Ze <- model.matrix(~0+env,phenoGE)  # design matrix for environments
+
+fit <- BGGE(y = y, K = K, XF= Ze, ne = ne,ite = 10E3, burn = 10E2, thin = 2, verbose = TRUE)
+```
+> OBS: for running CV schemes, you need to put the Step 3 inside of each fold.
  ----------------------------------------------------------------------------------------------------------------
 <div id="p7" />
 
