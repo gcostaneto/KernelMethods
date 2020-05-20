@@ -14,7 +14,8 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
        * [4.2  Gaussian Kernel (GK)](#p4.2)
        * [4.3  Deep Kernel Kernel (DK)](#p4.3)      
    * [5. Statistical Models](#p5)
-   * [6. Examples](#p7)
+   * [6. Genomic Prediction](#p6)
+   * [6. Variance Components](#p7)
    * [7. References](#p8)
    * [8. Authorship and Acknowledgments](#p9)
  
@@ -82,27 +83,71 @@ The environmental typing (envirotyping) pipeline were conducted using the functi
 
 # Kernel Methods
 
+Below are the codes for three types of kernel methods. We use these methods to model additive (**A**), dominance (**D**) and environmental (**W**) effects. On this page we will make the codes available, especially for obtaining the **D** effects, but we will exemplify the kernels using only the A effects. To run **D** and **W** just replace the matrix A with the respective **D** and **W**.
+
+> Obtaining dominance effects is given by:
 
 
 <div id="p4.1" />
 
 ## GBLUP
 
+> Relationship Kernels based on the Genomic Best Linear Unbiased Predictior (GBLUP) can be implemented as:
+
 
 <div id="p4.2" />
 
 ## Gaussian Kernel (GK)
+
+> Relationship Kernels based on Gaussian Kernel (GK) can be implemented as:
+
+> If the user want to compute the bandwith factor, a likehood marginal function can be implemented by providing the phenotypic data of the training set as:
 
 
 <div id="p4.3" />
 
 ## Deep Kernel (DK)
 
+> Relationship Kernels based on Deep Kernels (DK) cab be implemented based on the arc-cosine method presented in genomic prediction by Cuevas et al (2019) and Crossa et al (2020). Firstly, a base arc-cosine kernel are computed using the molecular matrix data (coded as additive = (0,1,2) or dominance) or environmental data (per environment or per genotype-environment combinations) as follows:
+
+> Then, using the function **get_** we can
+
 
  ----------------------------------------------------------------------------------------------------------------
 <div id="p5" />
 
 # Statistical Models
+
+Five genomic prediction models were presented using the function **get_kernels** from EnvRtype package.
+
+### Main Additive Effect Model (without GE effects)
+
+
+### Main Additive plus Dominance Effects Model (without GE effects)
+
+### Main Additive-Dominance effects plus GE deviation (GE = AE + DE)
+
+
+### Main Additive-Dominance effects plus Envirotyping information (W)
+
+### Main Additive-Dominance effects plus GE reaction norm (W+AW+DW)
+
+
+ ----------------------------------------------------------------------------------------------------------------
+<div id="p6" />
+
+## Genomic Prediction
+
+> Genomic predictions were performed using the Bayesian Genotype plus Genotype × Environment (BGGE) package (Granato et al. 2018) fitted to 10,000 iterations with the first 1,000 cycles removed as burn-in with thinning equal to 2. 
+
+
+ ----------------------------------------------------------------------------------------------------------------
+<div id="p7" />
+
+## Variance Components
+
+> Variance components can be extracted using the function **Vcomp.BGGE** provided in this [link]() or using the following source code:
+
 
 
  ----------------------------------------------------------------------------------------------------------------
