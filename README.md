@@ -162,8 +162,6 @@ Five genomic prediction models were presented using the function **get_kernels**
 
 * Granato I, Cuevas J, Luna-vázquez F, et al (2018) BGGE : A New Package for Genomic-Enabled Prediction Incorporating Genotype x Environment Interaction Models. 8:3039–3047. https://doi.org/10.1534/g3.118.200435
 
-* Granato I, Cuevas J, Luna-vázquez F, et al (2018) BGGE : A New Package for Genomic-Enabled Prediction Incorporating Genotype x Environment Interaction Models. 8:3039–3047. https://doi.org/10.1534/g3.118.200435
-
 * Jarquín D, Crossa J, Lacaze X, et al (2014) A reaction norm model for genomic selection using high-dimensional genomic and environmental data. Theor Appl Genet 127:595–607. https://doi.org/10.1007/s00122-013-2243-1
 
 * Morota G, Gianola D (2014) Kernel-based whole-genome prediction of complex traits: A review. Front Genet 5:. https://doi.org/10.3389/fgene.2014.00363
