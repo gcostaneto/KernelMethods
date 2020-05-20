@@ -25,7 +25,7 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
 
 # Overview
 
-This page was developed to provide genomic prediction codes using environmental data, dominance effects and reaction norms. We also provide codes for building kernels such as GBLUP, Gaussian Kernel and Deep Kernel. The base article for these codes is Costa-Neto et al. (submitted to Heredity journal in May 2020). All codes are free and any questions, suggestions or criticism to improve the codes please look for the authors of this page. Thank you very much!
+This page was developed to provide genomic prediction codes using environmental data, dominance effects and reaction norms. We also provide codes for building kernels such as GBLUP, Gaussian Kernel and Deep Kernel. The base article for these codes is the paper of Costa-Neto et al. (submitted to Heredity journal in May 2020). All codes are free and any questions, suggestions or criticism to improve the codes please look for the authors of this page. Thank you very much!
 
  ----------------------------------------------------------------------------------------------------------------
 <div id="p2" />
