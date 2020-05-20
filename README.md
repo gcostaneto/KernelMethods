@@ -25,6 +25,7 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
 
 # Overview
 
+This page was developed to provide genomic prediction codes using environmental data, dominance effects and reaction norms. We also provide codes for building kernels such as GBLUP, Gaussian Kernel and Deep Kernel. The base article for these codes is Costa-Neto et al. (submitted to Heredity journal in May 2020). All codes are free and any questions, suggestions or criticism please look for the authors of this page. Thank you very much!
 
  ----------------------------------------------------------------------------------------------------------------
 <div id="p2" />
@@ -147,6 +148,24 @@ Five genomic prediction models were presented using the function **get_kernels**
 ## Variance Components
 
 > Variance components can be extracted using the function **Vcomp.BGGE** provided in this [link]() or using the following source code:
+
+
+
+ ----------------------------------------------------------------------------------------------------------------
+<div id="p8" />
+
+# References
+
+* Crossa J, Martini JWR, Gianola D, et al (2019) Deep Kernel and Deep Learning for Genome-Based Prediction of Single Traits in Multienvironment Breeding Trials. Front Genet 10:1–13. https://doi.org/10.3389/fgene.2019.01168
+
+* Cuevas J, Montesinos-López O, Juliana P, et al (2019) Deep Kernel for genomic and near infrared predictions in multi-environment breeding trials. G3 Genes, Genomes, Genet 9:2913–2924. https://doi.org/10.1534/g3.119.400493
+
+* Granato I, Cuevas J, Luna-vázquez F, et al (2018) BGGE : A New Package for Genomic-Enabled Prediction Incorporating Genotype x Environment Interaction Models. 8:3039–3047. https://doi.org/10.1534/g3.118.200435
+
+* Pérez-Elizalde S, Cuevas J, Pérez-Rodríguez P, Crossa J (2015) Selection of the Bandwidth Parameter in a Bayesian Kernel Regression Model for Genomic-Enabled Prediction. J Agric Biol Environ Stat 20:512–532. https://doi.org/10.1007/s13253-015-0229-y
+
+* Pérez-Rodríguez P, Gianola D, González-Camacho JM, et al (2012) Comparison between linear and non-parametric regression models for genome-enabled prediction in wheat. G3 Genes, Genomes, Genet. https://doi.org/10.1534/g3.112.003665
+
 
 
 
