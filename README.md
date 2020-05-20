@@ -25,7 +25,7 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
 
 # Overview
 
-This page was developed to provide genomic prediction codes using environmental data, dominance effects and reaction norms. We also provide codes for building kernels such as GBLUP, Gaussian Kernel and Deep Kernel. The base article for these codes is Costa-Neto et al. (submitted to Heredity journal in May 2020). All codes are free and any questions, suggestions or criticism please look for the authors of this page. Thank you very much!
+This page was developed to provide genomic prediction codes using environmental data, dominance effects and reaction norms. We also provide codes for building kernels such as GBLUP, Gaussian Kernel and Deep Kernel. The base article for these codes is Costa-Neto et al. (submitted to Heredity journal in May 2020). All codes are free and any questions, suggestions or criticism to improve the codes please look for the authors of this page. Thank you very much!
 
  ----------------------------------------------------------------------------------------------------------------
 <div id="p2" />
@@ -84,7 +84,7 @@ The environmental typing (envirotyping) pipeline were conducted using the functi
 
 # Kernel Methods
 
-Below are the codes for three types of kernel methods. We use these methods to model additive (**A**), dominance (**D**) and environmental (**W**) effects. On this page we will make the codes available, especially for obtaining the **D** effects, but we will exemplify the kernels using only the A effects. To run **D** and **W** just replace the matrix A with the respective **D** and **W**.
+Below are the codes for three types of kernel methods. We use these methods to model additive (**A**), dominance (**D**) and environmental (**W**) effects. On this page we will make the codes available, especially for obtaining the **D** effects, but we will exemplify the kernels using only the **A** effects. To run **D** and **W** just replace the matrix A with the respective **D** and **W**.
 
 > Obtaining dominance effects is given by:
 
