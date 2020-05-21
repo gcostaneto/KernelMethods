@@ -108,17 +108,31 @@ W <-W.matrix(env.data = df.clim,var.id = id.var,statistic = 'quantile',names.win
 
 # Kernel Methods
 
-Below are the codes for three types of kernel methods. We use these methods to model additive (**A**), dominance (**D**) and environmental (**W**) effects. On this page we will make the codes available, especially for obtaining the **D** effects, but we will exemplify the kernels using only the **A** effects. To run **D** and **W** just replace the matrix A with the respective **D** and **W**.
+Below are the codes for three types of kernel methods. We use these methods to model additive (**A**), dominance (**D**) and environmental (**W**) effects. On this page we will make the codes available, especially for obtaining the **D** effects, but we will exemplify the kernels using only the **A** effects. To run **D** and **W** just replace the matrix A with the respective **D** and **W**. To run the following examples, please download the genotypic, phenotypic and environmental data in https://github.com/gcostaneto/KernelMethods/blob/master/teste.RData
 
 > Obtaining dominance effects is given by:
 
+```{r}
+source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/Dominance_Matrix.R') # codes for dominance effects
+D_matrix <- Dominance(M = M)
+dim(D_matrix) # genotypes x markers
 
+```
 <div id="p4.1" />
 
 ## GBLUP
 
 > Relationship Kernels based on the Genomic Best Linear Unbiased Predictior (GBLUP) can be implemented as:
 
+```{r}
+source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/GBLUP_Kernel.R') # codes for GB kernel
+K_A <- GB_kernel(M = A_matrix)  # Genomic relationship for A effects
+K_D <- GB_kernel(M = D_matrix)  # Genomic relationship for D effects
+
+require(EnvRtype)
+K_W <- list(W=EnvKernel(env.data = Wmatrix,Y = phenoGE,bydiag = F,env.id = 'env',merge = T)$envCov)
+
+```
 
 <div id="p4.2" />
 
@@ -126,8 +140,16 @@ Below are the codes for three types of kernel methods. We use these methods to m
 
 > Relationship Kernels based on Gaussian Kernel (GK) can be implemented as:
 
-> If the user want to compute the bandwith factor, a likehood marginal function can be implemented by providing the phenotypic data of the training set as:
+```{r}
+source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/Gaussian_Kernel.R') # codes for GK kernel
+K   <- GK_kernel(M = list(A=A_matrix,D=D_matrix)) # list for each kernel
+K_A <- K$A  # Genomic relationship for A effects
+K_D <- K$D  # Genomic relationship for D effects
 
+require(EnvRtype)
+K_W <- list(W=EnvKernel(env.data = Wmatrix,Y = phenoGE,gaussian=TRUE,env.id = 'env',merge = TRUE)$envCov)
+
+```
 
 <div id="p4.3" />
 
