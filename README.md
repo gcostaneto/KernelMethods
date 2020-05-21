@@ -69,14 +69,38 @@ The environmental typing (envirotyping) pipeline were conducted using the functi
 
 > Environmental data were obtained from NASA POWER data base using the function  **get_weather()** based on the geographic coordinates and planting dates for each environment:
 
+```{r}
+require(EnvRtype)
 
+# an example using 4 environments from USP set
+
+lat = c(-22.875,-22.705,-22.875,-22.705) # latitude coordinates
+lon = c(-47.997,-47.637,-47.997,-47.637) # longitude coordinates
+env = c("E1","E2,"E3","E4") # environmental ID
+plant.date = c("2016-01-26","2016-01-21","2017-01-12","2017-01-10")
+harv.date = c('2016-08-01',"2016-07-14","2017-07-25","2017-07-15")
+
+
+df.clim <- get_weather(env.id = env,lat = lat,lon = lon,start.day = plant.date,end.day = harv.date,country = 'BRA') 
+head(df.clim) # data set of weather data
+
+```
 <div id="p3.2" />
 
 ## Matrix of Environmental Covariables
 
 > Additional environmental variables describing ecophysiological processes (e.g., evapotranspiration, effect of temperature on radiation use efficiency) were computed using the function **processWTH()**:
 
+```{r}
+df.clim <- processWTH(env.data = df.clim) # computing thermal-related, radition and atmospheric process
+
+```
 > Then, it's possible to create an environmental covariable matrix **W**, with q environments and k combinations of time intervals (e.g., phenologycal stages) x quantiles (distribution of the environmental data) x environmental factor, as follows:
+
+```{r}
+id.var <- names(df.clim)[c(10:16,22,24:28,30:31)] # names of the variables
+W <-W.matrix(env.data = df.clim,var.id = id.var,statistic = 'quantile',names.window = F,by.interval = T,time.window = c(0,14,35,65,90,120))
+```
 
 
  ----------------------------------------------------------------------------------------------------------------
@@ -139,19 +163,32 @@ Five genomic prediction models were presented using the function **get_kernels**
 
 ## Genomic Prediction
 
-> Genomic predictions were performed using the Bayesian Genotype plus Genotype × Environment (BGGE) package (Granato et al. 2018) fitted to 10,000 iterations with the first 1,000 cycles removed as burn-in with thinning equal to 2. 
+> Genomic predictions were performed using the Bayesian Genotype plus Genotype × Environment (BGGE) package (Granato et al. 2018) fitted to 10,000 iterations with the first 1,000 cycles removed as burn-in with thinning equal to 2. To run the following examples, please download the genotypic, phenotypic and environmental data in https://github.com/gcostaneto/KernelMethods/blob/master/teste.RData
 
 ```{r}
 # example: Using model 5 com DK
+
+# to run this example, download the file https://github.com/gcostaneto/KernelMethods/blob/master/example.RData
+
+# and use this source:
+source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/DeepKernels.R') # codes for DK
+source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/Dominance_Matrix.R') # codes for dominance effects
+
 require(EnvRtype)
 
-# Step 1: Compute Dominance effects
+# Step 1: Compute Dominance effects and W matrix
+
+D_matrix <- Dominance(M = M)
+A_matrix <- M # coded as aa = 0, Aa = 1 and AA = 2
+
+W_matrix <-
 
 # Step 2: Compute the basic DK for each effect (A = adidtivity, D = dominance, W = environmental data)
 
 AK1_G <-
 
-AK1_E <-
+AK1_E <- get_GC1(M = list(W = envK(df.cov = Wmatrix,df.pheno = phenoGE,env.id = 'env'))) # basic K_W kernel using DK
+
 # Step 3: Create the kernels for the model structutre RNMM (reaction norm + main effects)
 
 training <- 1:length(y) # here you put the training set. As example, we use all data and 10 hidden layers (nl = 10)
@@ -172,8 +209,13 @@ fit <- BGGE(y = y, K = K, XF= Ze, ne = ne,ite = 10E3, burn = 10E2, thin = 2, ver
 
 ## Variance Components
 
-> Variance components can be extracted using the function **Vcomp.BGGE** provided in this [link]() or using the following source code:
+> Variance components can be extracted using the function **Vcomp.BGGE** provided in this [link](https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/VarianceComponents.R) or using the following source code:
 
+```{r}
+source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/VarianceComponents.R')
+Vcomp.BGGE(fit)
+
+```
 
 
  ----------------------------------------------------------------------------------------------------------------
