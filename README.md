@@ -242,7 +242,7 @@ AK1_E <- get_GC1(M = list(W = envK(df.cov = Wmatrix,df.pheno = phenoGE,env.id = 
 # Step 3: Create the kernels for the model structutre RNMM (reaction norm + main effects)
 
 training <- 1:length(y) # here you put the training set. As example, we use all data and 10 hidden layers (nl = 10)
-K <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
+M5 <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
 
 # Step 4: Preparing the Genomic Prediction using BGGE
 
@@ -251,9 +251,10 @@ ne <- as.vector(table(phenoGE$env)) # number of genotypes per environment
 y  <- phenoGE$yield                 # phenotypic observations
 Ze <- model.matrix(~0+env,phenoGE)  # design matrix for environments
 
-fit <- BGGE(y = y, K = K, XF= Ze, ne = ne,ite = 10E3, burn = 10E2, thin = 2, verbose = TRUE)
+fit <- BGGE(y = y, K = M5, XF= Ze, ne = ne,ite = 10E3, burn = 10E2, thin = 2, verbose = TRUE)
 ```
 > OBS: for running CV schemes, you need to put the Step 3 inside of each fold.
+> OBS2: For GB and GK kernels, the M5 ca be computed using the get_kernels() function as explained in Statistical Models section.
  ----------------------------------------------------------------------------------------------------------------
 <div id="p7" />
 
