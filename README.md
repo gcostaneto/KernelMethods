@@ -225,27 +225,37 @@ source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/DeepKe
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/Dominance_Matrix.R') # codes for dominance effects
 
 require(EnvRtype)
+```
 
-# Step 1: Compute Dominance effects and W matrix
+### Step 1: Compute Dominance effects and W matrix
 
+```{r}
 D_matrix <- Dominance(M = M)
 A_matrix <- M # coded as aa = 0, Aa = 1 and AA = 2
 
 W_matrix <-
 
-# Step 2: Compute the basic DK for each effect (A = adidtivity, D = dominance, W = environmental data)
+```
 
+### Step 2: Compute the basic DK for each effect (A = adidtivity, D = dominance, W = environmental data)
+
+```{r}
 AK1_G <-
 
 AK1_E <- get_GC1(M = list(W = envK(df.cov = Wmatrix,df.pheno = phenoGE,env.id = 'env'))) # basic K_W kernel using DK
 
-# Step 3: Create the kernels for the model structutre RNMM (reaction norm + main effects)
+```
 
+### Step 3: Create the kernels for the model structutre RNMM (reaction norm + main effects)
+
+```{r}
 training <- 1:length(y) # here you put the training set. As example, we use all data and 10 hidden layers (nl = 10)
 M5 <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
+```
 
-# Step 4: Preparing the Genomic Prediction using BGGE
+### Step 4: Preparing the Genomic Prediction using BGGE
 
+```{r}
 require(BGGE)
 ne <- as.vector(table(phenoGE$env)) # number of genotypes per environment
 y  <- phenoGE$yield                 # phenotypic observations
