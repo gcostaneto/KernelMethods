@@ -160,15 +160,29 @@ K_W <- list(W=EnvKernel(env.data = Wmatrix,Y = phenoGE,gaussian=TRUE,env.id = 'e
 
 ## Deep Kernel (DK)
 
-> Relationship Kernels based on Deep Kernels (DK) cab be implemented based on the arc-cosine method presented in genomic prediction by Cuevas et al (2019) and Crossa et al (2020). Firstly, a base arc-cosine kernel are computed using the molecular matrix data (coded as additive = (0,1,2) or dominance) or environmental data (per environment or per genotype-environment combinations) as follows:
+> Relationship Kernels based on Deep Kernels (DK) cab be implemented based on the arc-cosine method presented in genomic prediction by Cuevas et al (2019) and Crossa et al (2020). Firstly, a base arc-cosine kernel are computed using the molecular matrix data (coded as additive = (0,1,2) or dominance) or environmental data (per environment or per genotype-environment combinations).
+
+> Using the function **get_GC1** we can compute the base arc-cosine kernel as:
+
+```{r}
+source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/DeepKernels.R')
+
+# basic K_A kernel using DK
+
+K_A <- get_GC1(M = list(A=A_matrix))
+K_D <- get_GC1(M = list(D=D_matrix))
+
+# or build it together (this facilitate the second stage of DK analysis)
+AK1_G <- get_GC1(M = list(A=A_matrix, D=D_matrix))
+
+# basic K_W kernel using DK
+AK1_E <- get_GC1(M = list(W = envK(df.cov = Wmatrix,df.pheno = phenoGE,env.id = 'env'))) 
+```
 
 > Then, using the function **get_GC1** we can compute the base arc-cosine kernel as:
 
-```{r}
-
-```
-
-
+training <- 1:length(y) # here you put the training set. As example, we use all data and 10 hidden layers (nl = 10)
+M5 <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
 
  ----------------------------------------------------------------------------------------------------------------
 <div id="p5" />
