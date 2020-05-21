@@ -135,7 +135,7 @@ K_A <- GB_kernel(M = A_matrix)  # Genomic relationship for A effects
 K_D <- GB_kernel(M = D_matrix)  # Genomic relationship for D effects
 
 require(EnvRtype)
-K_W <- list(W=EnvKernel(env.data = Wmatrix,Y = phenoGE,bydiag = F,env.id = 'env',merge = T)$envCov)
+K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,bydiag = F,env.id = 'env',merge = T)$envCov)
 
 ```
 
@@ -152,7 +152,7 @@ K_A <- K$A  # Genomic relationship for A effects
 K_D <- K$D  # Genomic relationship for D effects
 
 require(EnvRtype)
-K_W <- list(W=EnvKernel(env.data = Wmatrix,Y = phenoGE,gaussian=TRUE,env.id = 'env',merge = TRUE)$envCov)
+K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,gaussian=TRUE,env.id = 'env',merge = TRUE)$envCov)
 
 ```
 
@@ -176,13 +176,17 @@ K_D <- get_GC1(M = list(D=D_matrix))
 AK1_G <- get_GC1(M = list(A=A_matrix, D=D_matrix))
 
 # basic K_W kernel using DK
-AK1_E <- get_GC1(M = list(W = envK(df.cov = Wmatrix,df.pheno = phenoGE,env.id = 'env'))) 
+AK1_E <- get_GC1(M = list(W = envK(df.cov = W_matrix,df.pheno = phenoGE,env.id = 'env'))) 
 ```
 
-> Then, using the function **get_GC1** we can compute the base arc-cosine kernel as:
+> Then, using the function **opt_AK** we can compute the base arc-cosine kernels according to a certain model structure:
 
+```{r}
 training <- 1:length(y) # here you put the training set. As example, we use all data and 10 hidden layers (nl = 10)
-M5 <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
+K <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
+```
+
+> details about the models (MM, EMM, MDs and RNMM) are given in the next section.
 
  ----------------------------------------------------------------------------------------------------------------
 <div id="p5" />
@@ -247,16 +251,15 @@ require(EnvRtype)
 D_matrix <- Dominance(M = M)
 A_matrix <- M # coded as aa = 0, Aa = 1 and AA = 2
 
-W_matrix <-
 
 ```
 
-### Step 2: Compute the basic DK for each effect (A = adidtivity, D = dominance, W = environmental data)
+### Step 2: Compute the basic DK for each effect (A = additive effects, D = dominance, W = environmental data)
 
 ```{r}
-AK1_G <-
+AK1_G <- get_GC1(M = list(A=A_matrix, D=D_matrix)) # basic K_A and K_DW kernels using DK
 
-AK1_E <- get_GC1(M = list(W = envK(df.cov = Wmatrix,df.pheno = phenoGE,env.id = 'env'))) # basic K_W kernel using DK
+AK1_E <- get_GC1(M = list(W = envK(df.cov = W_matrix,df.pheno = phenoGE,env.id = 'env'))) # basic K_W kernel using DK
 
 ```
 
