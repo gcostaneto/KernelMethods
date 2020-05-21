@@ -15,9 +15,9 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
        * [4.3  Deep Kernel Kernel (DK)](#p4.3)      
    * [5. Statistical Models](#p5)
    * [6. Genomic Prediction](#p6)
-   * [6. Variance Components](#p7)
-   * [7. Suggested Literature](#p8)
-   * [8. Authorship and Acknowledgments](#p9)
+   * [7. Variance Components](#p7)
+   * [8. Suggested Literature](#p8)
+   * [9. Authorship and Acknowledgments](#p9)
  
  
  ----------------------------------------------------------------------------------------------------------------
@@ -61,7 +61,12 @@ Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3)
 
 # Environmental Typing
 
-The environmental typing (envirotyping) pipeline were conducted using the functions of the [EnvRtype](https://github.com/allogamous/EnvRtype) R package. This package has functions for supporting the collection of environmental data **get_weather()**, processing environmental data **processWTH()** and build of the **W** matrix of envirotype covariables **W.matrix()**. Finally, this package helps the construction of the genomic x envirotyping kinships using **get_kernels()**  functions, which easily can run into a Bayesian Genomic-enabled Prediction framework implemented in [BGGE](https://github.com/italo-granato/BGGE) package. Bellow we present a brief example of the use of both packages to run a genomic prediction considering reaction norms.
+The environmental typing (envirotyping) pipeline were conducted using the functions of the [EnvRtype](https://github.com/allogamous/EnvRtype) R package. This package has functions for supporting the collection of environmental data **get_weather()**, processing environmental data **processWTH()** and build of the **W** matrix of envirotype covariables **W.matrix()**. Finally, this package helps the construction of the genomic x envirotyping kinships using **get_kernels()**  functions, which easily can run into a Bayesian Genomic-enabled Prediction framework implemented in [BGGE](https://github.com/italo-granato/BGGE) package. Bellow we present a brief example of the use of both packages to run a genomic prediction considering reaction norms. This package can be installed as:
+
+```{r}
+library(devtools)
+install_github('allogamous/EnvRtype')
+```
 
 <div id="p3.1" />
 
@@ -157,7 +162,12 @@ K_W <- list(W=EnvKernel(env.data = Wmatrix,Y = phenoGE,gaussian=TRUE,env.id = 'e
 
 > Relationship Kernels based on Deep Kernels (DK) cab be implemented based on the arc-cosine method presented in genomic prediction by Cuevas et al (2019) and Crossa et al (2020). Firstly, a base arc-cosine kernel are computed using the molecular matrix data (coded as additive = (0,1,2) or dominance) or environmental data (per environment or per genotype-environment combinations) as follows:
 
-> Then, using the function **get_** we can
+> Then, using the function **get_GC1** we can compute the base arc-cosine kernel as:
+
+```{r}
+
+```
+
 
 
  ----------------------------------------------------------------------------------------------------------------
@@ -169,16 +179,34 @@ Five genomic prediction models were presented using the function **get_kernels**
 
 ### Model 1:  Main Additive Effect Model (without GE effects)
 
+```{r}
+M1 <-get_kernel(K_G = list(A = K_A),K_E = NULL, Y = phenoGE,model = 'MM')
+```
 
 ### Model 2: Main Additive plus Dominance Effects Model (without GE effects)
 
+```{r}
+M2 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = NULL, Y = phenoGE,model = 'MM')
+```
+
 ### Model 3: Main Additive-Dominance effects plus GE deviation (GE = AE + DE)
 
+```{r}
+M3 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = NULL, Y = phenoGE,model = 'MDs')
+```
 
 ### Model 4: Main Additive-Dominance effects plus Envirotyping information (W)
 
+```{r}
+M4 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = K_W, Y = phenoGE,model = 'EMM')
+```
+
+
 ### Model 5: Main Additive-Dominance effects plus GE reaction norm (W+AW+DW)
 
+```{r}
+M5 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = K_W, Y = phenoGE,model = 'RNMM')
+```
 
  ----------------------------------------------------------------------------------------------------------------
 <div id="p6" />
