@@ -253,8 +253,9 @@ Ze <- model.matrix(~0+env,phenoGE)  # design matrix for environments
 
 fit <- BGGE(y = y, K = M5, XF= Ze, ne = ne,ite = 10E3, burn = 10E2, thin = 2, verbose = TRUE)
 ```
-> OBS: for running CV schemes, you need to put the Step 3 inside of each fold.
-> OBS2: For GB and GK kernels, the M5 ca be computed using the get_kernels() function as explained in Statistical Models section.
+
+> OBS: for **running CV schemes**, you need to put the Step 3 inside of each fold.
+> For **GB and GK** kernels, the M5 ca be computed using the get_kernels() function as explained in Statistical Models section.
  ----------------------------------------------------------------------------------------------------------------
 <div id="p7" />
 
