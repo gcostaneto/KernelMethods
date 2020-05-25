@@ -166,7 +166,7 @@ K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,gaussian=TRUE,env.id = '
 
 ## Deep Kernel (DK)
 
-> Relationship Kernels based on Deep Kernels (DK) cab be implemented based on the arc-cosine method presented in genomic prediction by Cuevas et al (2019) and Crossa et al (2020). Firstly, a base arc-cosine kernel are computed using the molecular matrix data (coded as additive = (0,1,2) or dominance) or environmental data (per environment or per genotype-environment combinations).
+> Relationship Kernels based on Deep Kernels (DK) cab be implemented based on the arc-cosine method presented in genomic prediction by Cuevas et al (2019) and Crossa et al (2019). Firstly, a base arc-cosine kernel are computed using the molecular matrix data (coded as additive = (0,1,2) or dominance) or environmental data (per environment or per genotype-environment combinations).
 
 > Using the function **get_GC1** we can compute the base arc-cosine kernel as:
 
