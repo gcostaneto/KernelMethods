@@ -138,6 +138,9 @@ require(EnvRtype)
 K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,bydiag = F,env.id = 'env',merge = T)$envCov)
 
 ```
+<p align="center">
+  <img src="/plots/GB_Kernels.png" width="70%" height="70%">
+</p>
 
 <div id="p4.2" />
 
@@ -155,6 +158,9 @@ require(EnvRtype)
 K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,gaussian=TRUE,env.id = 'env',merge = TRUE)$envCov)
 
 ```
+<p align="center">
+  <img src="/plots/GK_Kernels.png" width="70%" height="70%">
+</p>
 
 <div id="p4.3" />
 
@@ -178,6 +184,10 @@ AK1_G <- get_GC1(M = list(A=A_matrix, D=D_matrix))
 # basic K_W kernel using DK
 AK1_E <- get_GC1(M = list(W = envK(df.cov = W_matrix,df.pheno = phenoGE,env.id = 'env'))) 
 ```
+<p align="center">
+  <img src="/plots/AK_Kernels.png" width="70%" height="70%">
+</p>
+
 
 > Then, using the function **opt_AK** we can compute the base arc-cosine kernels according to a certain model structure:
 
