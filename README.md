@@ -116,7 +116,7 @@ W <-W.matrix(env.data = df.clim,var.id = id.var,statistic = 'quantile',names.win
 
 # Kernel Methods
 
-Below are the codes for three types of kernel methods. We use these methods to model additive (**A**), dominance (**D**) and environmental (**W**) effects. On this page we will make the codes available, especially for obtaining the **D** effects, but we will exemplify the kernels using only the **A** effects. To run **D** and **W** just replace the matrix A with the respective **D** and **W**. To run the following examples, please download the genotypic, phenotypic and environmental data [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set). To run HELIX, for example, use M from Molecular_HELIX.RData.
+Below are the codes for three types of kernel methods. We use these methods to model additive (**A**), dominance (**D**) and environmental (**W**) effects. On this page we will make the codes available, especially for obtaining the **D** effects, but we will exemplify the kernels using only the **A** effects. To run **D** and **W** just replace the matrix A with the respective **D** and **W**. To run the following examples, please download the genotypic, phenotypic and environmental data [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set). To run HELIX, for example, use M and S from Molecular_HELIX.RData as A_matrix and D_matrix, respectively (same for Molecular_USP.RData).
 
 > Obtaining dominance effects is given by:
 
