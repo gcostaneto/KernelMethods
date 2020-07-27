@@ -244,7 +244,7 @@ M5 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = K_W, Y = phenoGE,model = 'RNM
 
 ## Genomic Prediction
 
-> Genomic predictions were performed using the Bayesian Genotype plus Genotype × Environment (BGGE) package (Granato et al. 2018) fitted to 10,000 iterations with the first 1,000 cycles removed as burn-in with thinning equal to 2. To run the following examples, please download the genotypic, phenotypic and environmental data in https://github.com/gcostaneto/KernelMethods/blob/master/teste.RData
+> Genomic predictions were performed using the Bayesian Genotype plus Genotype × Environment (BGGE) package (Granato et al. 2018) fitted to 10,000 iterations with the first 1,000 cycles removed as burn-in with thinning equal to 2. To run the following examples, please download the genotypic, phenotypic and environmental data [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set). To run HELIX, for example, use M and S from Molecular_HELIX.RData as A_matrix and D_matrix, respectively (same for Molecular_USP.RData).  Then, run the previous examples (kernels section).
 
 ```{r}
 # example: Using model 5 com DK
