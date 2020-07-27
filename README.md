@@ -55,6 +55,7 @@ Check the [CIMMYT DATA VERSE Repository](https://data.cimmyt.org/dataset.xhtml?p
 
 Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3) for the full genotypic and phenotypic data
 
+* OBS: data sets can download in R.Data and RDS format direct [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set) or in [Dryad repository]()
 
 --------------------------------------------------------------------------------------------------------------------------------
 <div id="p3" />
