@@ -57,7 +57,7 @@ Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3)
 
 ## Data Availability For Running the Codes
 
-> Both data sets can download in R.Data and RDS format direct [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set) and [Mendeley Repository] (https://data.mendeley.com/datasets/cxkzb8mr8b/1)
+> Both data sets can download in R.Data and RDS format direct [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set) and [Mendeley Repository](https://data.mendeley.com/datasets/cxkzb8mr8b/1)
 
 --------------------------------------------------------------------------------------------------------------------------------
 <div id="p3" />
