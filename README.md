@@ -84,7 +84,7 @@ require(EnvRtype)
 
 lat = c(-22.875,-22.705,-22.875,-22.705) # latitude coordinates
 lon = c(-47.997,-47.637,-47.997,-47.637) # longitude coordinates
-env = c("E1","E2,"E3","E4") # environmental ID
+env = c("E1","E2","E3","E4") # environmental ID
 plant.date = c("2016-01-26","2016-01-21","2017-01-12","2017-01-10")
 harv.date = c('2016-08-01',"2016-07-14","2017-07-25","2017-07-15")
 
@@ -153,7 +153,7 @@ K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,bydiag = F,env.id = 'env
 
 ```{r}
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/Gaussian_Kernel.R') # codes for GK kernel
-K   <- GK_kernel(M = list(A=A_matrix,D=D_matrix)) # list for each kernel
+K   <- GK_Kernel(X = list(A=A_matrix,D=D_matrix)) # list for each kernel
 K_A <- K$A  # Genomic relationship for A effects
 K_D <- K$D  # Genomic relationship for D effects
 
