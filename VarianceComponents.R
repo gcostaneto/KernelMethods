@@ -1,6 +1,5 @@
 # model = a BGGE object
 # digits = round digits for output
-
 Vcomp.BGGE<-function(model,digits=4){
   K = model$K
   size = length(K)
@@ -16,6 +15,7 @@ Vcomp.BGGE<-function(model,digits=4){
   VarE  [1,2] = round(model$varE, digits    )
   VarE  [1,3] = round(model$varE.sd,digits   )
   comps = rbind(comps,VarE)
-  
+  return(comps)
+}
  
   
