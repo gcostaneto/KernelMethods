@@ -262,7 +262,7 @@ require(EnvRtype)
 ### Step 1: Compute Dominance effects and W matrix
 
 ```{r}
-D_matrix <- Dominance(M = M)
+D_matrix <- S.matrix(M = M)
 A_matrix <- M # coded as aa = 0, Aa = 1 and AA = 2
 
 
