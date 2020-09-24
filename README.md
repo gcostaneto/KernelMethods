@@ -1,6 +1,6 @@
 # Kernel Methods for Genomic Prediction across Multiple Environments
 Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, dominance effects and considering environmental information
-Last Update 24 september 2020
+*Last Update: 24 september 2020*
 
 # Contents
    * [1. Overview](#p0)
