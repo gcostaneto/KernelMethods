@@ -1,4 +1,7 @@
-Dominance <-function(M){
+# Dominance effects matrix (S)
+# M is a molecular marker matrix (0,1,2)
+
+S.matrix <-function(M){
   # from SnpReady
   N <- nrow(M)
   m <- ncol(M)
