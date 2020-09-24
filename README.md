@@ -122,7 +122,7 @@ Below are the codes for three types of kernel methods. We use these methods to m
 
 ```{r}
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/Dominance_Matrix.R') # codes for dominance effects
-D_matrix <- Dominance(M = M)
+D_matrix <- S.matrix(M = M)
 dim(D_matrix) # genotypes x markers
 
 ```
@@ -134,8 +134,8 @@ dim(D_matrix) # genotypes x markers
 
 ```{r}
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/GBLUP_Kernel.R') # codes for GB kernel
-K_A <- GB_kernel(M = A_matrix)  # Genomic relationship for A effects
-K_D <- GB_kernel(M = D_matrix)  # Genomic relationship for D effects
+K_A <- GB_Kernel(X = A_matrix)  # Genomic relationship for A effects
+K_D <- GB_Kernel(X = D_matrix,is.centered=TRUE)  # Genomic relationship for D effects
 
 require(EnvRtype)
 K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,bydiag = F,env.id = 'env',merge = T)$envCov)
