@@ -3,7 +3,6 @@
 # output: Linear covariance matrix
 
 GB_Kernel <-function(X,is.center=FALSE){
-  if(is.null(S)) S = Dominance(M = X)
   if(isFALSE(is.center)) X = scale(x = X,center = T,scale = F)
   XXl <- X %*% t(X)
   K_G <- XXl/(sum(diag(XXl))/nrow(X)) + diag(1e-6, nrow(XXl))
