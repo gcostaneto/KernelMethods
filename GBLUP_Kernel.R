@@ -8,3 +8,12 @@ GB_Kernel <-function(X,is.center=FALSE){
   K_G <- XXl/(sum(diag(XXl))/nrow(X)) + diag(1e-6, nrow(XXl))
   return(K_G)
 }
+
+
+reaction.norm = function(G,E){
+  EG = E %x% G
+  id = paste0(rep(colnames(G),ncol(E)),'_by_',rep(colnames(E),each=ncol(G)))
+  row.names(EG) = colnames(EG) = id
+  return(EG)
+
+}
