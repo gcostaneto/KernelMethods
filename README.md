@@ -69,7 +69,7 @@ The environmental typing (envirotyping) pipeline were conducted using the functi
 
 ```{r}
 library(devtools)
-install_github('allogamous/EnvRtype')
+install_github('allogamous/EnvRtype') # version 0.1.5
 ```
 
 <div id="p3.1" />
@@ -101,14 +101,14 @@ head(df.clim) # data set of weather data
 > Additional environmental variables describing ecophysiological processes (e.g., evapotranspiration, effect of temperature on radiation use efficiency) were computed using the function **processWTH()**:
 
 ```{r}
-df.clim <- processWTH(env.data = df.clim) # computing thermal-related, radition and atmospheric process
+df.clim <- processWTH(env.data = df.clim,Tbase1 = 8,Tbase2 = 45,Topt1 = 30,Topt2 = 37) # computing thermal-related, radition and atmospheric process
 
 ```
 > Then, it's possible to create an environmental covariable matrix **W**, with q environments and k combinations of time intervals (e.g., phenologycal stages) x quantiles (distribution of the environmental data) x environmental factor, as follows:
 
 ```{r}
 id.var <- names(df.clim)[c(10:16,22,24:28,30:31)] # names of the variables
-W <-W.matrix(env.data = df.clim,var.id = id.var,statistic = 'quantile',names.window = F,by.interval = T,time.window = c(0,14,35,65,90,120))
+W <-W_matrix(env.data = df.clim,var.id = id.var,statistic = 'quantile',names.window = F,by.interval = T,time.window = c(0,14,35,65,90,120))
 ```
 
 
@@ -139,7 +139,7 @@ K_A <- GB_Kernel(X = A_matrix)  # Genomic relationship for A effects
 K_D <- GB_Kernel(X = D_matrix,is.centered=TRUE)  # Genomic relationship for D effects
 
 require(EnvRtype)
-K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,bydiag = F,env.id = 'env',merge = T)$envCov)
+K_W <- list(W=env_kernel(env.data = W_matrix,Y = phenoGE,bydiag = F,env.id = 'env',merge = T)$envCov)
 
 ```
 <p align="center">
