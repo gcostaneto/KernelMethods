@@ -58,11 +58,11 @@ Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3)
 
 ## Data Availability For Running the Codes
 
-> Both data sets can download in R.Data and RDS format direct [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set) and [Mendeley Repository](https://data.mendeley.com/datasets/cxkzb8mr8b/1). To download this data, you have to click in 'download' and save in our computer diretory. 
+> Both data sets can download in R.Data and RDS format direct [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set) and [Mendeley Repository](https://data.mendeley.com/datasets/cxkzb8mr8b/1). To download this data, you have to click in 'download' and save in our computer diretory.
 
   <img align="center" src="/Heredity Data Set/howtodownload_1.png" width="70%" height="70%">
   
-Then, read the file using readRDS() function.
+Then, to import and read the file in R you must to use the readRDS() function (more detail below).
 
 --------------------------------------------------------------------------------------------------------------------------------
 <div id="p3" />
