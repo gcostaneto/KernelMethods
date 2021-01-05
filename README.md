@@ -112,7 +112,7 @@ df.clim <- processWTH(env.data = df.clim,Tbase1 = 8,Tbase2 = 45,Topt1 = 30,Topt2
 
 ```{r}
 id.var <- names(df.clim)[c(10:16,22,24:28,30:31)] # names of the variables
-W <-W_matrix(env.data = df.clim,var.id = id.var,statistic = 'quantile',by.interval = T,time.window = c(14,35,65,90,120))
+W <-W_matrix(env.data = df.clim,var.id = id.var,statistic = 'quantile',by.interval = TRUE,time.window = c(0,14,35,65,90,120))
 
 ```
 
