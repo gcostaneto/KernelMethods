@@ -140,11 +140,14 @@ dim(D_matrix) # genotypes x markers
 
 ```{r}
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/GBLUP_Kernel.R') # codes for GB kernel
-K_A <- GB_Kernel(X = A_matrix)  # Genomic relationship for A effects
-K_D <- GB_Kernel(X = D_matrix,is.centered=TRUE)  # Genomic relationship for D effects
+K_A <- GB_Kernel(X = A_matrix,is.center = FALSE)  # Genomic relationship for A effects
+K_D <- GB_Kernel(X = D_matrix,is.center = TRUE)  # Genomic relationship for D effects
+# list of matrixs
+K_G = list(A = K_A, D = K_D) # A + D model
+K_A = list(A = K_A)          # A model
 
 require(EnvRtype)
-K_W <- list(W=env_kernel(env.data = W_matrix,Y = phenoGE,bydiag = F,env.id = 'env',merge = T)$envCov)
+K_W <- list(W=env_kernel(env.data = as.matrix(W))[[2]]) # W matrix
 
 ```
 <p align="center">
@@ -159,12 +162,12 @@ K_W <- list(W=env_kernel(env.data = W_matrix,Y = phenoGE,bydiag = F,env.id = 'en
 
 ```{r}
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/Gaussian_Kernel.R') # codes for GK kernel
-K   <- GK_Kernel(X = list(A=A_matrix,D=D_matrix)) # list for each kernel
-K_A <- K$A  # Genomic relationship for A effects
-K_D <- K$D  # Genomic relationship for D effects
+K_G   <- GK_Kernel(X = list(A=A_matrix,D=D_matrix)) # list for each kernel
+K_A   <- list(A = K_G$A)  # A model
 
 require(EnvRtype)
-K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,gaussian=TRUE,env.id = 'env',merge = TRUE)$envCov)
+K_W <- list(W=env_kernel(env.data = as.matrix(W),gaussian = TRUE)[[2]]) # W matrix for GK
+
 
 ```
 <p align="center">
@@ -182,16 +185,13 @@ K_W <- list(W=EnvKernel(env.data = W_matrix,Y = phenoGE,gaussian=TRUE,env.id = '
 ```{r}
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/DeepKernels.R')
 
-# basic K_A kernel using DK
-
-K_A <- get_GC1(M = list(A=A_matrix))
-K_D <- get_GC1(M = list(D=D_matrix))
+# basic Ark-cosine kernels (1)
+K_A  <- get_GC1(M = list(A=A_matrix)) # K_A 1
 
 # or build it together (this facilitate the second stage of DK analysis)
-AK1_G <- get_GC1(M = list(A=A_matrix, D=D_matrix))
+K_G  <- get_GC1(M = list(A=A_matrix, D=D_matrix))
 
-# basic K_W kernel using DK
-AK1_E <- get_GC1(M = list(W = envK(df.cov = W_matrix,df.pheno = phenoGE,env.id = 'env'))) 
+K_W  <- get_GC1(M = list(W=W)) # K_E 1
 ```
 <p align="center">
   <img src="/plots/AK_Kernel.png" width="70%" height="70%">
@@ -201,8 +201,22 @@ AK1_E <- get_GC1(M = list(W = envK(df.cov = W_matrix,df.pheno = phenoGE,env.id =
 > Then, using the function **opt_AK** we can compute the base arc-cosine kernels according to a certain model structure:
 
 ```{r}
-training <- 1:length(y) # here you put the training set. As example, we use all data and 10 hidden layers (nl = 10)
-K <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
+# opmization of Deep Kernel
+
+# Step 1: built your kernel model using get_kernel from EnvRtype
+M1 <-get_kernel(K_G = K_A,K_E = NULL, env = 'env',gid='gid',y='value',data = phenoGE,model = 'MM')
+
+# Step 2: now optmize it using opt_AK function
+y = phenoGE$value # phenotypic records with NAs
+training <- 1:length(y) # here you put the training set. As example, we use all data and 3 hidden layers (nl = 10)
+
+M1. <- opt_AK(K = M1,y = y,tr = training,nl = 3) 
+
+# use the superheat to compare the modifications.
+# Example: e
+require(superheat)
+superheat(M1$KG_G$Kernel, row.dendrogram = T,col.dendrogram = T ) # AK1 kernel for G
+superheat(M1.$KG_G$Kernel,row.dendrogram = T,col.dendrogram = T ) # AK optmized for G
 ```
 
 > details about the models (MM, EMM, MDs and RNMM) are given in the next section.
@@ -217,32 +231,36 @@ Five genomic prediction models were presented using the function **get_kernels**
 ### Model 1:  Main Additive Effect Model (without GE effects)
 
 ```{r}
-M1 <-get_kernel(K_G = list(A = K_A),K_E = NULL, Y = phenoGE,model = 'MM')
+require(EnvRtype)
+M1 <-get_kernel(K_G = K_A,K_E = NULL, env = 'env',gid='gid',y='value',data = phenoGE,model = 'MM')
 ```
 
 ### Model 2: Main Additive plus Dominance Effects Model (without GE effects)
 
 ```{r}
-M2 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = NULL, Y = phenoGE,model = 'MM')
+M2 <-get_kernel(K_G = K_G,K_E = NULL, env = 'env',gid='gid',y='value',data = phenoGE,model = 'MM')
+
 ```
 
 ### Model 3: Main Additive-Dominance effects plus GE deviation (GE = AE + DE)
 
 ```{r}
-M3 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = NULL, Y = phenoGE,model = 'MDs')
+M3 <-get_kernel(K_G = K_G,K_E = NULL, env = 'env',gid='gid',y='value',data = phenoGE,model = 'MDs')
+
 ```
 
 ### Model 4: Main Additive-Dominance effects plus Envirotyping information (W)
 
 ```{r}
-M4 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = K_W, Y = phenoGE,model = 'EMM')
-```
+M4 <-get_kernel(K_G = K_G,K_E = K_W, env = 'env',gid='gid',y='value',data = phenoGE,model = 'EMM')
 
+```
 
 ### Model 5: Main Additive-Dominance effects plus GE reaction norm (W+AW+DW)
 
 ```{r}
-M5 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = K_W, Y = phenoGE,model = 'RNMM')
+M5 <-get_kernel(K_G = K_G,K_E = K_W, env = 'env',gid='gid',y='value',data = phenoGE,model = 'RNMM')
+
 ```
 
  ----------------------------------------------------------------------------------------------------------------
@@ -251,6 +269,8 @@ M5 <-get_kernel(K_G = list(A = K_A, D = K_D),K_E = K_W, Y = phenoGE,model = 'RNM
 ## Genomic Prediction
 
 > Genomic predictions were performed using the Bayesian Genotype plus Genotype × Environment (BGGE) package (Granato et al. 2018) fitted to 10,000 iterations with the first 1,000 cycles removed as burn-in with thinning equal to 2. To run the following examples, please download the genotypic, phenotypic and environmental data [here](https://github.com/gcostaneto/KernelMethods/tree/master/Heredity%20Data%20Set). To run HELIX, for example, use M and S from Molecular_HELIX.RData as A_matrix and D_matrix, respectively (same for Molecular_USP.RData).  Then, run the previous examples (kernels section).
+
+> In the EnvRtype package, now is availble a function named kernel_model() that runs the same algorithm from BGGE, but with some advantages such as already computes and organizes the variance components with their respective confidence intervals. If you want to use another package, you can use the functions to create the different kernel methods and use this relationship matrix in another functions. For DK, you can use M <- opt_AK(K = K,y = y,tr = training,nl = 10,package = 'other'), in which K is list of kernels (genomic and enviromic) and the argument 'package' denotes that your kernels will be processed to run in another packages. By default package = 'BGGE', which means that this output can be run in BGGE and EnvRtype.
 
 ```{r}
 # example: Using model 5 com DK
@@ -276,28 +296,38 @@ A_matrix <- M # coded as aa = 0, Aa = 1 and AA = 2
 ### Step 2: Compute the basic DK for each effect (A = additive effects, D = dominance, W = environmental data)
 
 ```{r}
-AK1_G <- get_GC1(M = list(A=A_matrix, D=D_matrix)) # basic K_A and K_DW kernels using DK
-
-AK1_E <- get_GC1(M = list(W = envK(df.cov = W_matrix,df.pheno = phenoGE,env.id = 'env'))) # basic K_W kernel using DK
+K_G  <- get_GC1(M = list(A=A_matrix, D=D_matrix))
+K_W  <- get_GC1(M = list(W=W)) # K_E 1
 
 ```
 
 ### Step 3: Create the kernels for the model structutre RNMM (reaction norm + main effects)
 
 ```{r}
-training <- 1:length(y) # here you put the training set. As example, we use all data and 10 hidden layers (nl = 10)
-M5 <- opt_AK(K_G = AK1_G ,K_E = AK1_E, nl = 10,Y = y,tr = training,model = 'RNMM')
+
+y = phenoGE$value # phenotypic records with NAs
+training <- 1:length(y) # here you put the training set. As example, we use all data and 3 hidden layers (nl = 10)
+M5 <-get_kernel(K_G = K_G,K_E = K_W, env = 'env',gid='gid',y='value',data = phenoGE,model = 'RNMM')
+
+M5 <- opt_AK(K = M5,y = y,tr = training,nl = 10) 
+
 ```
 
 ### Step 4: Preparing the Genomic Prediction using BGGE
 
 ```{r}
-require(BGGE)
+
 ne <- as.vector(table(phenoGE$env)) # number of genotypes per environment
 y  <- phenoGE$yield                 # phenotypic observations
 Ze <- model.matrix(~0+env,phenoGE)  # design matrix for environments
 
+# Using BGGE
+require(BGGE)
 fit <- BGGE(y = y, K = M5, XF= Ze, ne = ne,ite = 10E3, burn = 10E2, thin = 2, verbose = TRUE)
+
+# Using EnvRtype (novel)
+fit <- kernel_model(y = 'value',env = 'env',gid = 'gid',data = phenoGE,
+                    random = M5,fixed = Z_E,ite=10E3,burnin = 10E2,thin=2)
 ```
 
 > OBS: for **running CV schemes**, you need to put the Step 3 inside of each fold.
@@ -311,10 +341,11 @@ fit <- BGGE(y = y, K = M5, XF= Ze, ne = ne,ite = 10E3, burn = 10E2, thin = 2, ve
 
 ```{r}
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/VarianceComponents.R')
-Vcomp.BGGE(fit)
+Vcomp.BGGE(fit) # for using BGGE
+
 
 ```
-
+> If you are using the kernel_model() function from EnvRtype, this is obtaiend as fit$VarComp, already computed on the fit object.
 
  ----------------------------------------------------------------------------------------------------------------
 <div id="p8" />
