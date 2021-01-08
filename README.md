@@ -229,10 +229,13 @@ superheat(M1.$KG_G$Kernel,row.dendrogram = T,col.dendrogram = T ) # AK optmized 
 
 Five genomic prediction models were presented using the function **get_kernels** from EnvRtype package.
 
+```{r}
+require(Envtype) # or source('https://raw.githubusercontent.com/allogamous/EnvRtype/master/R/getGEenriched.R')
+```
+
 ### Model 1:  Main Additive Effect Model (without GE effects)
 
 ```{r}
-require(Envtype) # or source('https://raw.githubusercontent.com/allogamous/EnvRtype/master/R/getGEenriched.R')
 M1 <-get_kernel(K_G = K_A,K_E = NULL, env = 'env',gid='gid',y='value',data = phenoGE,model = 'MM')
 ```
 
