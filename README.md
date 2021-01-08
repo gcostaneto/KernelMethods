@@ -347,6 +347,15 @@ Vcomp.BGGE(fit) # for using BGGE
 ```
 > If you are using the kernel_model() function from EnvRtype, this is obtaiend as fit$VarComp, already computed on the fit object.
 
+```{r}
+# Using EnvRtype (novel)
+fit <- kernel_model(y = 'value',env = 'env',gid = 'gid',data = phenoGE,
+                    random = M5,fixed = Z_E,ite=10E3,burnin = 10E2,thin=2)
+fit$VarComp
+```
+
+                                   
+                    
  ----------------------------------------------------------------------------------------------------------------
 <div id="p8" />
 
