@@ -74,7 +74,7 @@ The environmental typing (envirotyping) pipeline were conducted using the functi
 
 ```{r}
 library(devtools)
-install_github('allogamous/EnvRtype') # version 0.1.5
+install_github('allogamous/EnvRtype') # current version:  0.1.6 (December 14th 2020)
 ```
 
 <div id="p3.1" />
