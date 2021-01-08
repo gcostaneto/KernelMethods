@@ -19,6 +19,7 @@ Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, 
    * [7. Variance Components](#p7)
    * [8. Suggested Literature](#p8)
    * [9. Authorship and Acknowledgments](#p9)
+   * [History and Updates](#p10)
  
  
  ----------------------------------------------------------------------------------------------------------------
@@ -402,9 +403,11 @@ We thank CIMMYT and the University of São Paulo (USP) for their support in the 
 
 The theories exposed on this page are presented in the work of Costa Neto et al (2020) and were developed under the authorship of Germano Costa Neto, Jose Crossa and Roberto Fritsche Neto.
     
+----------------------------------------------------------------------------------------------------------------
+<div id="p10" />
 
-# Updates (history):
+# History and Updates
 
-> 30 July 2020
-> 24 september 2020 (updated the opt_AK function)
-> 08 Jan 2021 (include kernel_model function and a novel opt_AK function)
+> * 30 July 2020
+> * 24 september 2020 (updated the S.matrix function)
+> * 08 Jan 2021 (include kernel_model function and a novel opt_AK function)
