@@ -2,7 +2,7 @@
 #' Deep kernel functions based on Arc-cosine kernels
 #' Authors: Jaime Cuevas (DK) & Germano Costa Neto (DK for reaction-norm)
 #'##############################################################################
-
+# last update: Jan 08 2020
 
 #'------------------------------------------------------------------------
 # Create DK for each Matrix (M) of inputs AK (Author: GCN) #####################
