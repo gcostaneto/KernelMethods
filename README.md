@@ -1,6 +1,6 @@
 # Kernel Methods for Genomic Prediction across Multiple Environments
 Core of functions to build gaussian kernel, arc-cosine and GBLUP with additive, dominance effects and considering environmental information
-*Last Update: 24 september 2020*
+*Last Update: 08 Jan 2020*
 
 # Contents
    * [1. Overview](#p0)
@@ -403,4 +403,8 @@ We thank CIMMYT and the University of São Paulo (USP) for their support in the 
 The theories exposed on this page are presented in the work of Costa Neto et al (2020) and were developed under the authorship of Germano Costa Neto, Jose Crossa and Roberto Fritsche Neto.
     
 
+# Updates (history):
 
+> 30 July 2020
+> 24 september 2020 (updated the opt_AK function)
+> 08 Jan 2021 (include kernel_model function and a novel opt_AK function)
