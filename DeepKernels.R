@@ -25,23 +25,26 @@ get_GC1 <- function(M){
 #' y  : phenotypic records (with NAs)
 #' tr : training set identification
 #' nl : predeterminated maximum number of hidden layers
+#' package: if you want to run in another package, use package = 'other'. If you wanto run in BGGE or EnvRtype, package = 'BGGE' by default
 
-opt_AK <- function(K,y, tr, nl=40)
-{
+opt_AK <- function(K,y, tr, nl=40,package = 'BGGE')
+  {
   id <- names(K)
   .K_post <-list()
-  for(j in 1:length(K)) .K_post[[j]] <- K[[j]]$Kernel
+  if(package == 'BGGE'){for(j in 1:length(K)) .K_post[[j]] <- K[[j]]$Kernel} 
+  if(!package == 'BGGE'){for(j in 1:length(K)) .K_post[[j]] <- K[[j]]} 
   opt_K  <- list()
   for(i in 1:length(K))
-  {
+    {
     l          <- marg.AK(y=y,GC=.K_post[[i]][tr,tr], nl=nl)
     cat(paste0(Sys.time(),'  Deep Kernel for: ',id[i],' effect with ',l, ' layers \n'))
     opt_K[[i]] <- Kernel.function(GC=.K_post[[i]],nl=l)
   }
-  for(j in 1:length(K)) K[[j]]$Kernel <- opt_K[[i]]#; K[[j]]$Type <- 'D'
+  if(package == 'BGGE'){for(j in 1:length(K)) K[[j]]$Kernel <- opt_K[[i]]} 
+  if(!package == 'BGGE'){for(j in 1:length(K)) K[[j]]<- opt_K[[i]]} 
+  
   return(K)
 }
-
 
 
 #'------------------------------------------------------------------------
