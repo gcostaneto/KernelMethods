@@ -1,7 +1,48 @@
 #'##############################################################################
 #' Deep kernel functions based on Arc-cosine kernels
-#' Authors: Jaime Cuevas & Germano Costa Neto
+#' Authors: Jaime Cuevas (DK) & Germano Costa Neto (DK for reaction-norm)
 #'##############################################################################
+
+
+#'------------------------------------------------------------------------
+# Create DK for each Matrix (M) of inputs AK (Author: GCN) #####################
+#'------------------------------------------------------------------------
+
+# same as GC1.fun, but for multiples elements into a M list (ex: M = list(Additive,Dominance)) -------------------------------------
+get_GC1 <- function(M){
+  AK1 <- list()
+  for(i in 1:length(M)) AK1[[i]] <- GC1.fun(X = M[[i]])
+  length(AK1)
+  names(AK1) = names(M)
+  return(AK1)
+  
+}
+
+#'------------------------------------------------------------------------
+# Optimzation of DK (integrating marginal functions) #####################
+#'------------------------------------------------------------------------
+#' K  : kernel output from get_kernel function of EnvRtype
+#' y  : phenotypic records (with NAs)
+#' tr : training set identification
+#' nl : predeterminated maximum number of hidden layers
+
+opt_AK <- function(K,y, tr, nl=40)
+{
+  id <- names(K)
+  .K_post <-list()
+  for(j in 1:length(K)) .K_post[[j]] <- K[[j]]$Kernel
+  opt_K  <- list()
+  for(i in 1:length(K))
+  {
+    l          <- marg.AK(y=y,GC=.K_post[[i]][tr,tr], nl=nl)
+    cat(paste0(Sys.time(),'  Deep Kernel for: ',id[i],' effect with ',l, ' layers \n'))
+    opt_K[[i]] <- Kernel.function(GC=.K_post[[i]],nl=l)
+  }
+  for(j in 1:length(K)) K[[j]]$Kernel <- opt_K[[i]]#; K[[j]]$Type <- 'D'
+  return(K)
+}
+
+
 
 #'------------------------------------------------------------------------
 # Marginal function for AK (Author: JC) ########################################
@@ -59,90 +100,27 @@ GC1.fun<-function(X){
 }  
 
 
-#'------------------------------------------------------------------------
-# Create DK for each Matrix (M) of inputs AK (Author: GCN) #####################
-#'------------------------------------------------------------------------
-
-# same as GC1.fun, but for multiples elements into a M list (ex: M = list(Additive,Dominance)) -------------------------------------
-get_GC1 <- function(M){
-  AK1 <- list()
-  for(i in 1:length(M)) AK1[[i]] <- GC1.fun(X = M[[i]])
-  length(AK1)
-  names(AK1) = names(M)
-  return(AK1)
+Kernel.function<-function(GC,nl){
+  n<-nrow(GC)
+  GC1<-GC
   
-}
-
-# Optimzation of DK (integrating marginal functions) -------------------------------------
-# model: type of model output (same as get_kernels() function)
-# MM (main effect), MDs (MM+GE), RNMM, RNMDs, see get_kernels function from Envrtype package
-
-opt_AK <- function(K_G,K_E=NULL,nl=40,Y,tr,model='MM'){
-  
-  y <- Y$value[tr]
-  
-  #' Creating basic kernels -----------
-  if(model == 'MDs' | model == 'EMDs'){
-    GC <- get_kernel(K_G = K_G,K_E = K_E,model = 'MM',Y = Y)
-  }else{
-    if(!model == 'MDs' | !model == 'EMDs') GC <- get_kernel(K_G = K_G,K_E = K_E,model = model,Y = Y)
-  } 
-  
-  
-  gids <- GC[grep(names(GC),pattern = 'KG_' )]
-  envs <- GC[grep(names(GC),pattern = 'KE_' )]
-  
-  
-  #' Genetic  relatedness ----------
-  GC <-list()
-  for(j in 1:length(gids)) GC[[j]] <- gids[[j]]$Kernel
-  
-  optAKg <- list()
-  
-  for(i in 1:length(GC)){
-    l <- marg.AK(y=y,GC=GC[[i]][tr,tr], nl=nl)
-    optAKg[[i]] <- Kernel.function(GC=K_G[[i]],nl=l)
+  for ( l in 1:nl){
+    
+    Aux<-tcrossprod(diag(GC))
+    cosalfa<-GC*(Aux^(-1/2))
+    cosa<-as.vector(cosalfa)
+    cosa[which(cosalfa>1)]<-1
+    
+    angulo<-acos(cosa)
+    angulo<-matrix(angulo,n,n)
+    
+    GC<-(1/pi)*(Aux^(1/2))*(sin(angulo)+(pi*matrix(1,n,n)-angulo)*cos(angulo))
     
   }
-  names(optAKg) = names(K_G)
-  cat(paste0('AK for G effects ', length(optAKg),' Kernels \n'))
   
-  #' Environmental relatedness ----------
-  optEK <- NULL
-  # step 5: optmizing E
-  if(model %in% c('EMM','EMDs','RNMM','RNMDs')){
-    cat(paste0('AK for E effects \n'))
-    EC <-list()
-    for(j in 1:length(envs)) EC[[j]] <- envs[[j]]$Kernel
-    optEK <- list()
-    for(i in 1:length(EC)){
-      l <-marg.AK(y=y,GC=EC[[i]][tr,tr], nl=nl)
-      optEK[[i]] <- Kernel.function(GC=K_E[[i]],nl=l)
-      
-    }
-    names(optEK) = names(K_E)
-  }
+  GC<-GC/median(GC)
   
-  #' using get_kernel to create multiple genomic x enviromic kernels
-  
-  if(!model =='MDs'){
-    K <- get_kernel(K_G = optAKg,K_E=optEK,model = model,Y = Y)
-  }else{
-    if(model == 'MDs'){
-      K <- get_kernel(K_G = optAKg,K_E=NULL,model = 'MM',Y = Y)
-      nK <-names(K)
-      Ze <- model.matrix(~0+env,Y)
-      ZZ <- tcrossprod(Ze)
-      optGE<-list()
-      for(i in 1:length(optAKg)){
-        optGE[[i]] <- list(Kernel=K[[i]]$Kernel*ZZ, Type='BD')
-      }
-      names(optGE) <- paste0('KGE_',names(optAKg),'E')
-      K <- cbind(K,optGE)
-      names(K) <- c(nK, names(optGE))
-    }
-  }
-  
-  
-  return(K)
+  rownames(GC)<-rownames(GC1)
+  colnames(GC)<-colnames(GC1)
+  return(GC)
 }
