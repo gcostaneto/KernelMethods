@@ -361,6 +361,8 @@ fit$VarComp
 
 # Suggested Literature
 
+* Costa-Neto, G, Galli G, Carvalho, H F, Fritsche-Neto R, Crossa J (2020). EnvRtype: A package to interplay enviromics and quantitative genomics. available at [biorxv](https://www.biorxiv.org/content/10.1101/2020.10.14.339705v3)
+
 * Costa-Neto G, Fritsche-Neto R, Crossa J (2020). Nonlinear kernels, dominance, and envirotyping data increase the accuracy of genome-based prediction in multi-environment trials. Heredity (Edinb). http://dx.doi.org/10.1038/s41437-020-00353-1
 
 * Crossa J, Martini JWR, Gianola D, et al (2019) Deep Kernel and Deep Learning for Genome-Based Prediction of Single Traits in Multienvironment Breeding Trials. Front Genet 10:1–13. https://doi.org/10.3389/fgene.2019.01168
