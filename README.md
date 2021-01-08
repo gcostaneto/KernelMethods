@@ -62,7 +62,7 @@ Check the [Mendeley Repository](https://data.mendeley.com/datasets/tpcw383fkm/3)
 
   <img align="center" src="/Heredity Data Set/howtodownload_1.png" width="70%" height="70%">
   
-Then, to import and read the file in R you must to use the readRDS() function (more detail below).
+Then, to import and read the file in R you must to use the readRDS() function (more detail below). To download every dataset (USP and Helix), please use the following [file](https://github.com/gcostaneto/KernelMethods/blob/master/Heredity%20Data%20Set/Full%20Data.zip).
 
 --------------------------------------------------------------------------------------------------------------------------------
 <div id="p3" />
