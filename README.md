@@ -410,4 +410,4 @@ The theories exposed on this page are presented in the work of Costa Neto et al 
 
 > * 30 July 2020
 > * 24 september 2020 (updated the S.matrix function)
-> * 08 Jan 2021 (include kernel_model function and a novel opt_AK function)
+> * 08 Jan 2021 (include kernel_model function and a novel opt_AK function; updates in EnvRtype modified this tutorial)
