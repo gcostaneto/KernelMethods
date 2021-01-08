@@ -320,11 +320,11 @@ M5 <- opt_AK(K = M5,y = y,tr = training,nl = 10)
 
 ne <- as.vector(table(phenoGE$env)) # number of genotypes per environment
 y  <- phenoGE$yield                 # phenotypic observations
-Ze <- model.matrix(~0+env,phenoGE)  # design matrix for environments
+Z_E <- model.matrix(~0+env,phenoGE)  # design matrix for environments
 
 # Using BGGE
 require(BGGE)
-fit <- BGGE(y = y, K = M5, XF= Ze, ne = ne,ite = 10E3, burn = 10E2, thin = 2, verbose = TRUE)
+fit <- BGGE(y = y, K = M5, XF= Z_E, ne = ne,ite = 10E3, burn = 10E2, thin = 2, verbose = TRUE)
 
 # Using EnvRtype (novel)
 fit <- kernel_model(y = 'value',env = 'env',gid = 'gid',data = phenoGE,
