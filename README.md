@@ -231,7 +231,7 @@ Five genomic prediction models were presented using the function **get_kernels**
 ### Model 1:  Main Additive Effect Model (without GE effects)
 
 ```{r}
-require(EnvRtype)
+require(Envtype) # or source('https://raw.githubusercontent.com/allogamous/EnvRtype/master/R/getGEenriched.R')
 M1 <-get_kernel(K_G = K_A,K_E = NULL, env = 'env',gid='gid',y='value',data = phenoGE,model = 'MM')
 ```
 
@@ -281,7 +281,7 @@ M5 <-get_kernel(K_G = K_G,K_E = K_W, env = 'env',gid='gid',y='value',data = phen
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/DeepKernels.R') # codes for DK
 source('https://raw.githubusercontent.com/gcostaneto/KernelMethods/master/Dominance_Matrix.R') # codes for dominance effects
 
-require(EnvRtype)
+require(EnvRtype) # or source('https://raw.githubusercontent.com/allogamous/EnvRtype/master/R/met_kernel_model.R')
 ```
 
 ### Step 1: Compute Dominance effects and W matrix
@@ -304,7 +304,7 @@ K_W  <- get_GC1(M = list(W=W)) # K_E 1
 ### Step 3: Create the kernels for the model structutre RNMM (reaction norm + main effects)
 
 ```{r}
-
+require(Envtype) # or source('https://raw.githubusercontent.com/allogamous/EnvRtype/master/R/getGEenriched.R')
 y = phenoGE$value # phenotypic records with NAs
 training <- 1:length(y) # here you put the training set. As example, we use all data and 3 hidden layers (nl = 10)
 M5 <-get_kernel(K_G = K_G,K_E = K_W, env = 'env',gid='gid',y='value',data = phenoGE,model = 'RNMM')
