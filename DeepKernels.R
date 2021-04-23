@@ -27,24 +27,32 @@ get_GC1 <- function(M){
 #' nl : predeterminated maximum number of hidden layers
 #' package: if you want to run in another package, use package = 'other'. If you wanto run in BGGE or EnvRtype, package = 'BGGE' by default
 
-opt_AK <- function(K,y, tr, nl=40,package = 'BGGE')
-  {
+opt_AK <- function (K, y, tr, nl = 40, package = "BGGE") 
+{
   id <- names(K)
-  .K_post <-list()
-  if(package == 'BGGE'){for(j in 1:length(K)) .K_post[[j]] <- K[[j]]$Kernel} 
-  if(!package == 'BGGE'){for(j in 1:length(K)) .K_post[[j]] <- K[[j]]} 
-  opt_K  <- list()
-  for(i in 1:length(K))
-    {
-    l          <- marg.AK(y=y[tr],GC=.K_post[[i]][tr,tr], nl=nl)
-    cat(paste0(Sys.time(),'  Deep Kernel for: ',id[i],' effect with ',l, ' layers \n'))
-    opt_K[[i]] <- Kernel.function(GC=.K_post[[i]],nl=l)
+  .K_post <- list()
+  if (package == "BGGE") {
+    for (j in 1:length(K)) .K_post[[j]] <- K[[j]]$Kernel
   }
-  if(package == 'BGGE'){for(j in 1:length(K)) K[[j]]$Kernel <- opt_K[[i]]} 
-  if(!package == 'BGGE'){for(j in 1:length(K)) K[[j]]<- opt_K[[i]]} 
-  
+  if (!package == "BGGE") {
+    for (j in 1:length(K)) .K_post[[j]] <- K[[j]]
+  }
+  opt_K <- list()
+  for (i in 1:length(K)) {
+    l <- marg.AK(y = y[tr], GC = .K_post[[i]][tr, tr], nl = nl)
+    cat(paste0(Sys.time(), "  Deep Kernel for: ", id[i], 
+      " effect with ", l, " layers \n"))
+    opt_K[[i]] <- Kernel.function(GC = .K_post[[i]], nl = l)
+  }
+  if (package == "BGGE") {
+    for (j in 1:length(K)) K[[j]]$Kernel <- opt_K[[j]]
+  }
+  if (!package == "BGGE") {
+    for (j in 1:length(K)) K[[j]] <- opt_K[[j]]
+  }
   return(K)
 }
+
 
 
 #'------------------------------------------------------------------------
