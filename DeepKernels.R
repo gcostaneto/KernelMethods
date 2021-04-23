@@ -36,7 +36,7 @@ opt_AK <- function(K,y, tr, nl=40,package = 'BGGE')
   opt_K  <- list()
   for(i in 1:length(K))
     {
-    l          <- marg.AK(y=y,GC=.K_post[[i]][tr,tr], nl=nl)
+    l          <- marg.AK(y=y[tr],GC=.K_post[[i]][tr,tr], nl=nl)
     cat(paste0(Sys.time(),'  Deep Kernel for: ',id[i],' effect with ',l, ' layers \n'))
     opt_K[[i]] <- Kernel.function(GC=.K_post[[i]],nl=l)
   }
